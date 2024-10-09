@@ -1,0 +1,277 @@
+1.
+START
+DECLARE startbalance, balance, credlim, totcred, totchar AS DOUBLE
+    DECLARE accno AS INTEGER
+    SET accno = 0
+
+    WHILE accno IS NOT -1 DO
+        PRINT "Enter account number (-1 to end): "
+        INPUT accno
+        
+        IF accno IS -1 THEN
+            PRINT "Thank you for using our services!"
+            BREAK
+        ELSE
+            PRINT "Enter beginning balance: "
+            INPUT startbalance
+            
+            PRINT "Enter total charges: "
+            INPUT totchar
+            
+            PRINT "Enter total credits: "
+            INPUT totcred
+            
+            PRINT "Enter credit limit: "
+            INPUT credlim
+            
+            PRINT NEWLINE
+            
+            
+            SET balance = startbalance + totchar - totcred
+            
+            
+            PRINT "Account: ", accno
+            PRINT "Credit Limit: ", credlim
+            PRINT "Balance: ", balance
+            
+            
+            IF balance > credlim THEN
+                PRINT "Credit Limit Exceeded."
+            ELSE
+                PRINT "Credit limit is within bounds."
+            END IF
+            
+            PRINT NEWLINE 
+        END IF
+    END WHILE
+
+END
+
+
+2.
+START
+ DECLARE gallon, mile, milforgal, average, total AS FLOAT
+    DECLARE counter AS INTEGER
+    SET total = 0
+    SET counter = 0
+
+    WHILE TRUE DO
+        PRINT "Enter the gallons used (-1 to end): "
+        INPUT gallon
+
+        IF gallon IS -1 THEN
+            PRINT "See you next time!"
+            BREAK
+        END IF
+
+        PRINT "Enter the miles driven: "
+        INPUT mile
+
+        
+        SET milforgal = mile / gallon
+        PRINT "The miles/gallon for this tank was ", milforgal
+        PRINT NEWLINE
+
+        
+        total = total + gallon
+        counter = counter + 1
+    END WHILE
+
+    
+    IF counter > 0 THEN
+        SET average = total / counter
+        PRINT "The overall average miles/gallon was ", average
+    END IF
+
+END
+
+3.
+START
+DECLARE base AS INTEGER
+    DECLARE basecost AS FLOAT
+    DECLARE maxWeight AS INTEGER
+    DECLARE priceIncrement AS FLOAT
+    DECLARE parcelg AS FLOAT
+    DECLARE parcelrndup AS INTEGER
+    DECLARE total AS FLOAT
+    SET base = 300
+    SET basecost = 5.00
+    SET maxWeight = 1000
+    SET priceIncrement = 2.00
+
+    PRINT "Enter the weight of your SMALL parcel: "
+    INPUT parcelg
+
+    
+    IF parcelg < 0 THEN
+        PRINT "Weight cannot be negative. Please enter a valid weight."
+        RETURN 1 // Exit program with error code
+    END IF
+
+    
+    SET parcelrndup = ROUND(parcelg)
+
+   
+    IF parcelrndup > maxWeight THEN
+        PRINT "Weight exceeding the maximum weight. The maximum weight is ", maxWeight, "g."
+    ELSE
+       
+        DECLARE extraWeight AS INTEGER
+        SET extraWeight = MAX(0, parcelrndup - base)
+
+       
+        DECLARE extraCharges AS INTEGER
+        SET extraCharges = (extraWeight + 99) / 100 // Increment for each 100g
+
+       
+        SET total = basecost + (extraCharges * priceIncrement)
+
+        
+        PRINT "The cost of sending your ", parcelrndup, "g (", parcelg, "g) will be P", total
+    END IF
+
+END
+
+4.
+START
+DECLARE conv AS FLOAT
+    DECLARE final AS FLOAT
+    DECLARE choice AS INTEGER
+    DECLARE cont AS INTEGER
+
+   
+    PRINT "(1) cm - inches"
+    PRINT "(2) inches - cm"
+    PRINT "(3) feet - meter"
+    PRINT "(4) meter - feet"
+    
+    PRINT "Would you like to convert? (-1 to end, any number to continue): "
+    INPUT cont
+
+    WHILE cont IS NOT -1 DO
+        PRINT "Enter your desired conversion: "
+        INPUT choice
+        PRINT NEWLINE
+
+        
+        SWITCH choice DO
+            CASE 1:
+                PRINT "cm - inches"
+                PRINT "Enter what you want to convert: "
+                INPUT conv
+                SET final = conv * 0.393701
+                BREAK
+            
+            CASE 2:
+                PRINT "inches - cm"
+                PRINT "Enter what you want to convert: "
+                INPUT conv
+                SET final = conv * 2.54
+                BREAK
+            
+            CASE 3:
+                PRINT "feet - meter"
+                PRINT "Enter what you want to convert: "
+                INPUT conv
+                SET final = conv * 0.3048
+                BREAK
+            
+            CASE 4:
+                PRINT "meter - feet"
+                PRINT "Enter what you want to convert: "
+                INPUT conv
+                SET final = conv * 3.28084
+                BREAK
+            
+            DEFAULT:
+                PRINT "You didn't select one of the four conversions."
+                BREAK
+        END SWITCH
+
+       
+        PRINT "Final answer is: ", final
+        PRINT NEWLINE
+
+        
+        PRINT "Would you like to convert again? (-1 to end): "
+        INPUT cont
+    END WHILE
+
+END
+
+
+5.
+START
+DECLARE rad AS FLOAT
+    DECLARE length AS FLOAT
+    DECLARE wid AS FLOAT
+    DECLARE base AS FLOAT
+    DECLARE height AS FLOAT
+    DECLARE side AS FLOAT
+    DECLARE final AS FLOAT
+    DECLARE choice AS INTEGER
+    DECLARE cont AS INTEGER
+    DEFINE pi AS FLOAT = 3.14159265358979323846
+
+    
+    PRINT "(1) Area of circle"
+    PRINT "(2) Area of rectangle"
+    PRINT "(3) Area of triangle"
+    PRINT "(4) Area of square - feet"
+    
+    PRINT "Would you like to compute? (-1 to end, any number to continue): "
+    INPUT cont
+
+    WHILE cont IS NOT -1 DO
+        PRINT "What would you like to compute: "
+        INPUT choice
+        PRINT NEWLINE
+
+        
+        SWITCH choice DO
+            CASE 1:
+                PRINT "Area of circle"
+                PRINT "Enter the radius: "
+                INPUT rad
+                SET final = pi * (rad ^ 2) // Correct exponentiation
+                BREAK
+            
+            CASE 2:
+                PRINT "Area of rectangle"
+                PRINT "Enter the length: "
+                INPUT length
+                PRINT "Enter the width: "
+                INPUT wid
+                SET final = length * wid
+                BREAK
+            
+            CASE 3:
+                PRINT "Area of triangle"
+                PRINT "Enter the base: "
+                INPUT base
+                PRINT "Enter the height: "
+                INPUT height
+                SET final = (1 / 2) * base * height // Corrected calculation
+                BREAK
+            
+            CASE 4:
+                PRINT "Area of square - feet"
+                PRINT "Enter the side: "
+                INPUT side
+                SET final = side ^ 2 // Correct exponentiation
+                BREAK
+            
+            DEFAULT:
+                PRINT "You didn't select one of the four options."
+                BREAK
+        END SWITCH
+
+        
+        PRINT "Final answer is: ", final
+        PRINT NEWLINE
+
+        PRINT "Would you like to compute again? (-1 to end): "
+        INPUT cont
+    END WHILE
+
+END
